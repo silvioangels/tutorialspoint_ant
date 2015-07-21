@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<project name="fax" basedir="." default="build-jar">
+   	<property name="web.dir" value="../../../../war"/>
+	<property name="build.dir" value="${web.dir}/WEBINF"/>
+
+	<target name="build-jar">
+	   <jar destfile="${web.dir}/lib/util.jar"
+	      basedir="${build.dir}/classes"
+	      includes="**"
+	      excludes="**/Test.class">
+
+	      <manifest>
+	         <attribute name="Main-Class" value="com.tutorialspoint.util.FaxUtil"/>
+	      </manifest>
+
+	   </jar>
+	</target>
+	   
+</project>
