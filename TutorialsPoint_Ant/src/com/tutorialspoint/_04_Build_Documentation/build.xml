@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<project name="fax" basedir="." default="generate-javadoc">
+   <property name="src.dir" value="../../../../src"/>
+   <property name="doc.dir" value="../../../../doc"/>
+
+	<target name = "generate-javadoc">
+	   <javadoc packagenames="*" sourcepath="${src.dir}" 
+	      destdir = "${doc.dir}" version = "true" windowtitle = "Fax Application">
+	      
+	      <doctitle><![CDATA[= Fax Application =]]></doctitle>
+	      
+	      <bottom>
+	         <![CDATA[Copyright © 2015. All Rights Reserved.]]>
+	      </bottom>
+	      
+	      <group title = "util packages" packages = "util.*"/>
+	      <group title = "web packages"  packages = "web.*"/>
+	      <group title = "data packages" packages = "entity.*:dao.*"/>
+	   </javadoc>
+	   
+	   <echo message = "java doc has been generated!" />
+	</target>
+</project>
