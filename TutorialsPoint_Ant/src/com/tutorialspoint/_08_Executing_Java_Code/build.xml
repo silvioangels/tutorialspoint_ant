@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project name="sample" basedir="." default="run">
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="." destdir="build/classes"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="com.tutorialspoint._08_Executing_Java_Code.HelloWorld"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="clean, compile, jar">
+        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+    </target>
+
+
+</project>

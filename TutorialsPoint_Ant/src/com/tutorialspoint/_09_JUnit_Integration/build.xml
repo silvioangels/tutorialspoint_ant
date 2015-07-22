@@ -1,0 +1,56 @@
+<project name="hello" default="run" basedir=".">
+  <description>ant 'Hello, world' build.xml example</description>
+
+  <property name="src.dir"   value="."/>
+  <property name="build.dir" value="build"/>
+  <property name="dist.dir"  value="dist"/>
+  <property name="junit.dir" value="junit-results"/>
+
+  <property name="junit.jar" location="../../../../libs/junit-4.12.jar"/>
+  <property name="test.class" value="com.tutorialspoint._09_JUnit_Integration.TestHello"/>
+
+  <path id="classpath">
+    <pathelement location="${build.dir}" />
+    <pathelement location="${junit.jar}" />
+  </path>
+
+  <target name="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+    <mkdir dir="${junit.dir}"/>
+  </target>
+
+  <target name="build" depends="init" description="build everything under ${src.dir}" >
+    <javac srcdir="${src.dir}" destdir="${build.dir}">
+      <classpath refid="classpath"/>
+    </javac>
+  </target>
+
+  <target name="test" depends="build" description="unit test" >
+    <junit errorProperty="test.failed" failureProperty="test.failed">
+      <test name="${test.class}" todir="${junit.dir}" />
+      <formatter type="brief" usefile="false" />
+      <formatter type="xml" />
+      <classpath refid="classpath" />
+    </junit>
+    <fail message="Tests failed: check test reports." if="test.failed" />
+  </target>
+
+  <target name="dist" depends="test" description="generate the distribution" >
+    <jar jarfile="${dist.dir}/hello.jar" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="com.tutorialspoint._09_JUnit_Integration.Hello"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="run" depends="dist">
+    <java jar="${dist.dir}/hello.jar" fork="true" />
+  </target>
+
+  <target name="clean" description="clean up" >
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+    <delete dir="${junit.dir}"/>
+  </target>
+</project>
