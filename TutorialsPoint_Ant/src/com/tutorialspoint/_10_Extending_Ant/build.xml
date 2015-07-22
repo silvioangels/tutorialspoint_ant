@@ -1,0 +1,23 @@
+<project default="main" basedir=".">
+	
+	<property name="ant.jar" location="../../../../libs/ant.jar"/>
+	
+	 <path id="classpath">
+	    <pathelement location="${ant.jar}" />
+	  </path>
+	
+	<target name="build">
+		<mkdir dir="build" />
+		<javac srcdir="." destdir="build" includeantruntime="false">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+	<target name="declare" depends="build">
+		<taskdef name="mytask" classname="com.tutorialspoint._10_Extending_Ant.MyTask" classpath="build" />
+	</target>
+
+	<target name="main" depends="declare">
+		<mytask message="Hello World! MyTask with Custom Message Works!" />
+	</target>
+</project>
